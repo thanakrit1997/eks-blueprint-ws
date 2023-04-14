@@ -164,10 +164,29 @@ module "kubernetes_addons" {
   #---------------------------------------------------------------
 
 
-  enable_aws_load_balancer_controller  = true
-  enable_amazon_eks_aws_ebs_csi_driver = true
-  enable_aws_for_fluentbit             = true
-  enable_metrics_server                = true
-  enable_argo_rollouts                 = true
+  enable_aws_load_balancer_controller        = true
+  enable_amazon_eks_aws_ebs_csi_driver       = true
+  enable_aws_for_fluentbit                   = true
+  enable_metrics_server                      = true
+  enable_argo_rollouts                       = true
+  enable_karpenter                           = true
+  karpenter_node_iam_instance_profile        = module.karpenter.instance_profile_name
+  karpenter_enable_spot_termination_handling = true
+  #karpenter_sqs_queue_arn                    = module.karpenter.queue_arn  
 
+}
+
+################################################################################
+# Karpenter
+################################################################################
+
+# Creates Karpenter native node termination handler resources and IAM instance profile
+module "karpenter" {
+  source  = "terraform-aws-modules/eks/aws//modules/karpenter"
+  version = "~> 19.9"
+
+  cluster_name           = local.name
+  create_irsa            = false # IRSA will be created by the kubernetes-addons module
+
+  tags = local.tags
 }
