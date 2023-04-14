@@ -39,7 +39,7 @@ locals {
         }
         blueprint                = "terraform"
         clusterName              = local.name
-        #karpenterInstanceProfile = "${local.name}-${local.node_group_name}" # Activate to enable Karpenter manifests (only when Karpenter add-on will be enabled in the Karpenter module)
+        karpenterInstanceProfile = "${local.name}-${local.node_group_name}" # Activate to enable Karpenter manifests (only when Karpenter add-on will be enabled in the Karpenter module)
         env                      = local.env
       }
     }    
