@@ -57,6 +57,41 @@ module "eks_blueprints" {
     }
   }
 
+  platform_teams = {
+    admin = {
+      users = [
+        data.aws_caller_identity.current.arn
+      ]
+    }
+  }
+
+  application_teams = {
+    team-riker = {
+      "labels" = {
+        "appName"     = "riker-team-app",
+        "projectName" = "project-riker",
+        "environment" = "dev",
+        "domain"      = "example",
+        "uuid"        = "example",
+        "billingCode" = "example",
+        "branch"      = "example"
+      }
+      "quota" = {
+        "requests.cpu"    = "10",
+        "requests.memory" = "20Gi",
+        "limits.cpu"      = "30",
+        "limits.memory"   = "50Gi",
+        "pods"            = "15",
+        "secrets"         = "10",
+        "services"        = "10"
+      }
+      ## Manifests Example: we can specify a directory with kubernetes manifests that can be automatically applied in the team-riker namespace.
+      manifests_dir = "./kubernetes/team-riker"
+      users         = [data.aws_caller_identity.current.arn]
+    }
+  }
+
+
   tags = local.tags
 }
 
