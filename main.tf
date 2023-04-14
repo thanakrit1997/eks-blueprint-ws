@@ -146,7 +146,7 @@ module "kubernetes_addons" {
 
   argocd_applications = {
     addons    = local.addon_application
-    #workloads = local.workload_application #We comment it for now
+    workloads = local.workload_application #We comment it for now
   }
 
   argocd_helm_config = {
