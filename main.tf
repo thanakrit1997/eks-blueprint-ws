@@ -168,5 +168,6 @@ module "kubernetes_addons" {
   enable_amazon_eks_aws_ebs_csi_driver = true
   enable_aws_for_fluentbit             = true
   enable_metrics_server                = true
+  enable_argo_rollouts                 = true
 
 }
