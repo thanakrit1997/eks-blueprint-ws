@@ -22,7 +22,7 @@ locals {
   #---------------------------------------------------------------
   # ARGOCD WORKLOAD APPLICATION
   #---------------------------------------------------------------
-  workload_repo = "https://github.com/dasapich/eks-blueprints-workloads.git"
+  workload_repo = "https://github.com/thanakrit1997/eks-blueprints-workloads.git"
 
   workload_application = {
     path               = "envs/dev"
@@ -39,7 +39,7 @@ locals {
         }
         blueprint                = "terraform"
         clusterName              = local.name
-        karpenterInstanceProfile = "${local.name}-${local.node_group_name}" # Activate to enable Karpenter manifests (only when Karpenter add-on will be enabled in the Karpenter module)
+        #karpenterInstanceProfile = "${local.name}-${local.node_group_name}" # Activate to enable Karpenter manifests (only when Karpenter add-on will be enabled in the Karpenter module)
         env                      = local.env
       }
     }    

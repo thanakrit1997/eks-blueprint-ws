@@ -81,7 +81,7 @@ module "eks_blueprints" {
         "requests.memory" = "20Gi",
         "limits.cpu"      = "30",
         "limits.memory"   = "50Gi",
-        "pods"            = "30",
+        "pods"            = "15",
         "secrets"         = "10",
         "services"        = "10"
       }
@@ -164,24 +164,20 @@ module "kubernetes_addons" {
   #---------------------------------------------------------------
 
 
-  enable_aws_load_balancer_controller        = true
-  enable_amazon_eks_aws_ebs_csi_driver       = true
-  enable_aws_for_fluentbit                   = true
-  enable_metrics_server                      = true
-  enable_argo_rollouts                       = true
-  enable_karpenter                           = true
+  enable_aws_load_balancer_controller  = true
+  enable_amazon_eks_aws_ebs_csi_driver = true
+  enable_aws_for_fluentbit             = true
+  enable_metrics_server                = true
+  enable_argo_rollouts                 = true
+
+  enable_karpenter                     = true
   karpenter_node_iam_instance_profile        = module.karpenter.instance_profile_name
   karpenter_enable_spot_termination_handling = true
   #karpenter_sqs_queue_arn                    = module.karpenter.queue_arn  
-  enable_kubecost                            = true
+
 
 }
 
-################################################################################
-# Karpenter
-################################################################################
-
-# Creates Karpenter native node termination handler resources and IAM instance profile
 module "karpenter" {
   source  = "terraform-aws-modules/eks/aws//modules/karpenter"
   version = "~> 19.9"
